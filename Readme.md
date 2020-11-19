@@ -1,6 +1,6 @@
 # Boxgen
 
-#WARNING: undocumented besides code, tutotirals incoming soon.
+#WARNING: undocumented besides code, tutorials incoming soon.
 
 ## A Lua-based auto-matic collision-box generator
 
