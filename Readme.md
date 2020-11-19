@@ -18,20 +18,20 @@ For a much better walkthrough, tutorials, and videos, please visit the [wiki](ht
 
 ### If you just want to jump in head first, here are the basics:
 
-#### 1. You must have lua installed on your machine or accessible. 
-On linux, you can normally just use a package manager to install. I fully reccomend **luajit** and not plain lua. For more information for specific systems, see the [wiki](https://github.com/ExeVirus/boxgen/wiki)
+#### 1. You must have lua (preferrably luajit) installed on your machine or accessible. 
+On linux, you can normally just use a package manager to install lua. I fully reccomend **luajit** and not plain lua. For more information, see the [wiki](https://github.com/ExeVirus/boxgen/wiki)
 
 #### 2. Download this repository anywhere to your computer and navigate to that folder.
 
 #### 3. Everything is controlled by run.lua, that is the main program file. To see the help text for the file just run: 
 ```
-run.lua -h
+lua run.lua -h
 ```
 
 #### 4. To generate boxes for the provided example.obj file, just execute:
 
 ```
-run.lua 
+lua run.lua 
 ```
 - Two html files will be generated that allow you to view the boxes without loading all of minetest: boxes.html and obj.html. obj.html is just the mesh file, and boxes.html is the mesh + voxel grid used for generation + boxes.
 
