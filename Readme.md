@@ -1,6 +1,6 @@
 # Boxgen
 
-#WARNING: undocumented besides code, tutorials incoming soon.
+#WARNING: undocumented besides code, tutorials incoming soon. This is NOT a minetest mod, it is a lua utility program.
 
 ## A Lua-based auto-matic collision-box generator
 
