@@ -18,7 +18,8 @@ For a much better walkthrough, tutorials, and videos, please visit the [wiki](ht
 
 ### If you just want to jump in head first, here are the basics:
 
-#### 1. You must have lua installed on your machine or accessible. On linux, you can normally just use a package manager to install. I fully reccomend **luajit** and not plain lua. For more information for specific systems, see the [wiki page](https://github.com/ExeVirus/boxgen/wiki)
+#### 1. You must have lua installed on your machine or accessible. 
+On linux, you can normally just use a package manager to install. I fully reccomend **luajit** and not plain lua. For more information for specific systems, see the [wiki page](https://github.com/ExeVirus/boxgen/wiki)
 
 #### 2. Download this repository anywhere to your computer and navigate to that folder.
 
@@ -37,10 +38,10 @@ run.lua
 - The output data will be in a file called "data.box", this is to be renamed and used with [autobox](https://github.com/ExeVirus/autobox) 
 
 #### 5. To change the boxing settings, there are four key variables:
-- spacing: This is the spacing between voxels when voxelizing the object. Smaller is more data points, but slower.
-- minimum fill (minfill): This is the minimum percentage any generated box must contain the input mesh. 100% = no box outside of the mesh
-- minimum size (minsize): This is the minimum volume a box can be. A normal minetest node is 1x1x1, so if minimum size is 1, then the smallest box would have to have the same volume as a full node. 
-- minimum quality (min-qual): This is an advanced parameter that has to do with the algorithm for combining the grid-voxels into boxes. Essentially this parameter stops boxes from growing into areas with really low percentages of voxels. See the wiki for more information, but for now: 0.1 (10%) is a relatively good value. Set to 0.001 for less boxes.
+- **spacing**: This is the spacing between voxels when voxelizing the object. Smaller is more data points, but slower.
+- **minimum fill (minfill)**: This is the minimum percentage any generated box must contain the input mesh. 100% = no box outside of the mesh
+- **minimum size (minsize)**: This is the minimum volume a box can be. A normal minetest node is 1x1x1, so if minimum size is 1, then the smallest box would have to have the same volume as a full node. 
+- **minimum quality (min-qual)**: This is an advanced parameter that has to do with the algorithm for combining the grid-voxels into boxes. Essentially this parameter stops boxes from growing into areas with really low percentages of voxels. See the wiki for more information, but for now: 0.1 (10%) is a relatively good value. Set to 0.001 for less boxes.
 
 #### 6. Caveats to be aware of:
 - Your meshes **must** be watertight, or at least 99.9% watertight to get good results. If you don't know what this means, go see the [wiki page](https://github.com/ExeVirus/boxgen/wiki)
