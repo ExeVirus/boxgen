@@ -19,7 +19,7 @@ For a much better walkthrough, tutorials, and videos, please visit the [wiki](ht
 ### If you just want to jump in head first, here are the basics:
 
 #### 1. You must have lua installed on your machine or accessible. 
-On linux, you can normally just use a package manager to install. I fully reccomend **luajit** and not plain lua. For more information for specific systems, see the [wiki page](https://github.com/ExeVirus/boxgen/wiki)
+On linux, you can normally just use a package manager to install. I fully reccomend **luajit** and not plain lua. For more information for specific systems, see the [wiki](https://github.com/ExeVirus/boxgen/wiki)
 
 #### 2. Download this repository anywhere to your computer and navigate to that folder.
 
@@ -44,11 +44,11 @@ run.lua
 - **minimum quality (min-qual)**: This is an advanced parameter that has to do with the algorithm for combining the grid-voxels into boxes. Essentially this parameter stops boxes from growing into areas with really low percentages of voxels. See the wiki for more information, but for now: 0.1 (10%) is a relatively good value. Set to 0.001 for less boxes.
 
 #### 6. Caveats to be aware of:
-- Your meshes **must** be watertight, or at least 99.9% watertight to get good results. If you don't know what this means, go see the [wiki page](https://github.com/ExeVirus/boxgen/wiki)
+- Your meshes **must** be watertight, or at least 99.9% watertight to get good results. If you don't know what this means, go see the [wiki page](https://github.com/ExeVirus/boxgen/wiki/Overview-and-Algorithm) on the subject.
 
 - Meshes larger than 3x3x3 (or smaller, but offset from the origin) will require extra nodes to approximate. While this is done as effeciently as possible, these means you cannot merely place your object anywhere you can place a node, you must think of it as a two+ node object, and that can be hard to deal with in some situations (especially larger meshes like a building)
 
-- This program is decently optimized, so it runs pretty fast, but it is using CPU, and so unless you are patient, I recommend using meshes with no more than 1200 triangles, and grid spacing no smaller than 2% of the mesh size (i.e. 0.02 spacing for a node sized object). LuaJIT (5.1) is able to run this program at about 10x the speed of normal lua, I can't recommend it enough. You should never need to use meshes larger than 1200 triangles though, see the [wiki page](https://github.com/ExeVirus/boxgen/wiki) on working with meshes and meshlab. 
+- This program is decently optimized, so it runs pretty fast, but it is using CPU, and so unless you are patient, I recommend using meshes with no more than 1200 triangles, and grid spacing no smaller than 2% of the mesh size (i.e. 0.02 spacing for a node sized object). LuaJIT (5.1) is able to run this program at about 10x the speed of normal lua, I can't recommend it enough. You should never need to use meshes larger than 1200 triangles though, see the [wiki page](https://github.com/ExeVirus/boxgen/wiki/Meshlab-Tutorial) on working with meshes and meshlab. 
 
 ---
 
