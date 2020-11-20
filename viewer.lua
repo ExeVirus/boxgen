@@ -511,15 +511,8 @@ function viewer.viewObjBoxes(objfile, grid, boxGroups)
     io.write([[
     var layout = {
         autosize: false,
-        width: 1200,
-        height: 1000,
-        margin: {
-            l: 200,
-            r: 0,
-            b: 0,
-            t: 0,
-            pad: 4
-        },
+        width: 1024,
+        height: 800,
         showlegend: true,
         legend: {
             x: 1,
