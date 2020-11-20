@@ -2,7 +2,15 @@ package.path = "../?.lua;" .. package.path
 local inspect = require "./inspect"
 local export = require "./export"
 
-local f = io.open("data.box", "rb")
+local f
+if arg[1] ~= nil then
+    f = io.open(arg[1], "rb")
+else
+    print("-------------------------------------")
+    print("\n\nYou must specify a filename to read from \n\ne.g. lua ToByHand.lua example.box\n\n")
+    print("-------------------------------------")
+    return
+end
 local data = export.deserialize(f:read("*all"))
 io.close(f)
 
