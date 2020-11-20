@@ -50,7 +50,6 @@ local groups = boxgen.breakup(grid, inspect, settings.relocate, reposition)
 
 --Now to calculate our collision boxes
 local boxGroups = boxgen.boxify(groups, settings.minfill, settings.minvol, settings.minqual, inspect)
-print(inspect(boxGroups))
 
 --Export the boxes for viewing
 viewer.viewObjBoxes(objfile, grid, boxGroups)
@@ -60,14 +59,12 @@ viewer.viewObjBoxes(objfile, grid, boxGroups)
 --make a list of x,y,z (in node-coords) from placement node to where these collision and selection boxes
 --Should go. I.e. @ y = 1 (1 above) placement node, use this string for collision boxes and this string for selection boxes:
 local output = export.format(boxGroups, settings.relocate)
-print(inspect(output))
- --This only exists because of jankiness with luajit
 --
 -- Export Minetest Readable data (JSON-Like)
 --
 output = export.serialize(output)
 
-local outFile = io.open("data.box", "w+") --Open file for writing
+local outFile = io.open(string.sub(settings.filename:match("^.+/(.+)$"), 0, -5) .. ".box", "w+") --Open file for writing
 io.output(outFile)
 io.write(output)
 io.close(outFile)

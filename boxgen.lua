@@ -157,42 +157,47 @@ end
 --        returns: 1 or 0
 --
 
-
+--localize needed functions for raycast to optimize speed
+local v_subtract = vector.subtract
+local v_cross = vector.cross
+local v_new = vector.new
+local v_dot = vector.dot
 
 function raycast( x,y,z, triangle)
     local EPSILON = 0.00001
-    local rayOrigin = vector.new( x, y, z)
-    local rayVector = vector.new( 0, 1, 0)
-
+    local rayVector = v_new( 0, 1, 0)
+    
     local vert0 = triangle[1]
     local vert1 = triangle[2]
     local vert2 = triangle[3]
 
-    local edge1 = vector.subtract(vert1, vert0)
-    local edge2 = vector.subtract(vert2, vert0)
+    local edge1 = v_subtract(vert1, vert0)
+    local edge2 = v_subtract(vert2, vert0)
 
-    local h = vector.cross(rayVector, edge2)
-    local a = vector.dot(edge1, h)
+    local h = v_cross(rayVector, edge2)
+    local a = v_dot(edge1, h)
 
     if (a > -EPSILON and a < EPSILON) then
         return 0 --Ray is parallel to triangle
     end
+    
+    local rayOrigin = v_new( x, y, z)
 
     local f = 1.0 / a
-    local s = vector.subtract(rayOrigin, vert0)
-    local u = f * vector.dot(s, h)
+    local s = v_subtract(rayOrigin, vert0)
+    local u = f * v_dot(s, h)
     if( u < 0.0 or u > 1.0) then
         return 0
     end
 
-    local q = vector.cross(s, edge1)
-    local v = f * vector.dot(rayVector, q)
+    local q = v_cross(s, edge1)
+    local v = f * v_dot(rayVector, q)
 
     if ( v < 0.0 or (u+v) > 1.0) then
         return 0
     end
 
-    local t = f * vector.dot(edge2, q)
+    local t = f * v_dot(edge2, q)
     if ( t > EPSILON ) then
         return 1 --Ray intersection
     end
@@ -273,7 +278,8 @@ function boxgen.voxelize(object, spacing, relocate, reposition)
                     index = index + 1
                 end
             end
-            print("Voxelization: ".. i / (grid.dimensions.x / spacing) * 100 .. "% complete")
+            io.stdout:write("Voxelization: ".. i / (grid.dimensions.x / spacing) * 100 .. "% complete\n")
+            --print("Voxelization: ".. i / (grid.dimensions.x / spacing) * 100 .. "% complete")
         end
     end
     grid.numberOfVoxels = index - 1
@@ -934,7 +940,7 @@ function boxgen.boxify(groups, minfill, minsize, minqual, inspect)
                                         end
                                         run_algo = false --Done with this box
                                         if boxNum ~= boxGroups[grindex].numBoxes then
-                                            print("Boxify: " .. voxelsProcessed / totalFilledVoxels*100 .."% Complete")
+                                            io.stdout:write("Boxify: " .. voxelsProcessed / totalFilledVoxels*100 .."% Complete\n")
                                         end
                                     end
                                 end --End algo
@@ -956,7 +962,7 @@ function boxgen.boxify(groups, minfill, minsize, minqual, inspect)
             end
         end
     end
-    print("Boxify: " .. 100 .."% Complete")
+    io.stdout:write("Boxify: " .. 100 .."% Complete\n")
     return boxGroups
 end
 

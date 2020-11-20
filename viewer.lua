@@ -60,34 +60,73 @@ end
 --
 -- Function view_result(grid) -- Shows the filled verticies from voxelize
 --
-function viewer.view_grid(grid)
-    local output = ""--String for plotly
-    --strings for x's, y's, z's :)
-    local xs = "x: ["
-    local ys = "y: ["
-    local zs = "z: ["
-    for i, v in ipairs(grid.voxel_verts) do
-        xs = xs .. v.x .. ", "
-        ys = ys .. v.y .. ", "
-        zs = zs .. v.z .. ", "
-        if i % 400 == 0 then
-            print("Grid Export: " .. i / grid.numberOfFilledVoxels * 100 .. "% Complete")
+function viewer.view_grid(grid, write_to_file)
+    if write_to_file ~= true then
+        local output = ""--String for plotly
+        --strings for x's, y's, z's :)
+        local xs = "x: ["
+        local ys = "y: ["
+        local zs = "z: ["
+        local stop = grid.numberOfFilledVoxels
+        for i=1,stop , 1 do
+            xs = xs .. grid.voxel_verts[i].x .. ", "
+            ys = ys .. grid.voxel_verts[i].y .. ", "
+            zs = zs .. grid.voxel_verts[i].z .. ", "
+            if i % 400 == 0 then
+                io.stdout:write("Grid Export: " .. i / grid.numberOfFilledVoxels * 100 .. "% Complete\n")
+            end
         end
-    end
-    xs = xs .. "],\n"
-    ys = ys .. "],\n"
-    zs = zs .. "],\n"
+        xs = xs .. "],\n"
+        ys = ys .. "],\n"
+        zs = zs .. "],\n"
 
-    output = output .. "var grid = {\n"
-    output = output .. xs
-    output = output .. ys
-    output = output .. zs
-    output = output .. "mode: 'markers',\n"
-    output = output .. "marker: { size: 2},\n"
-    output = output .. "name: 'grid',\n"
-    output = output .. "type: 'scatter3d',\n}\n"
-     print("Grid Export: 100% Complete")
-    return output
+        output = output .. "var grid = {\n"
+        output = output .. xs
+        output = output .. ys
+        output = output .. zs
+        output = output .. "mode: 'markers',\n"
+        output = output .. "marker: { size: 2},\n"
+        output = output .. "name: 'grid',\n"
+        output = output .. "type: 'scatter3d',\n}\n"
+        io.stdout:write("Grid Export: 100% Complete\n")
+        return output
+   else
+        --Do everything with io.write
+        io.write("var grid = {\n")
+        
+        io.write("x: [")
+        for i=1,grid.numberOfFilledVoxels,1 do
+            io.write(grid.voxel_verts[i].x .. ", ")
+            if i % 600 == 0 then
+                io.stdout:write("Grid Export: " .. i / 3 / grid.numberOfFilledVoxels * 100 .. "% Complete\n")
+            end
+        end
+        io.write("],\n")
+        
+        io.write("y: [")
+        for i=1,grid.numberOfFilledVoxels,1 do
+            io.write(grid.voxel_verts[i].y .. ", ")
+            if i % 600 == 0 then
+                io.stdout:write("Grid Export: " .. i / 3 / grid.numberOfFilledVoxels * 100 + 33.33 .. "% Complete\n")
+            end
+        end
+        io.write("],\n")
+        
+        io.write("z: [")
+        for i=1,grid.numberOfFilledVoxels,1 do
+            io.write(grid.voxel_verts[i].z .. ", ")
+            if i % 600 == 0 then
+                io.stdout:write("Grid Export: " .. i / 3 / grid.numberOfFilledVoxels * 100 + 66.66 .. "% Complete\n")
+            end
+        end
+        io.write("],\n")
+        
+        io.write("mode: 'markers',\n")
+        io.write("marker: { size: 2},\n")
+        io.write("name: 'grid',\n")
+        io.write("type: 'scatter3d',\n}\n")
+        io.stdout:write("Grid Export: 100% Complete\n")
+    end
 end
 
 function viewer.viewObjGrid(objfile, grid)
@@ -400,7 +439,7 @@ function viewer.viewObjBoxes(objfile, grid, boxGroups)
     io.write(plotly_header)
 
     io.write("<script>\n")
-    io.write(viewer.view_grid(grid))
+    viewer.view_grid(grid, true) --directly write to output
     --Export all the resulting boxes
     local totalBoxes = 0
     for i = 1, boxGroups.size.x*boxGroups.size.y*boxGroups.size.z, 1 do
@@ -412,7 +451,7 @@ function viewer.viewObjBoxes(objfile, grid, boxGroups)
         for j = 1, boxGroups[i].numBoxes, 1 do
             io.write(viewer.view_box(boxGroups[i].boxes[j], boxGroups[i].offset, boxGroups.spacing, "set" .. i .."box" .. j, colors[((i-1) % 7)+1],"set" .. i))
             boxesProcessed = boxesProcessed + 1
-            print("Boxes.html Box Export: " .. boxesProcessed / totalBoxes * 100 .. "% complete")
+            io.stdout:write("Boxes.html Box Export: " .. boxesProcessed / totalBoxes * 100 .. "% complete\n")
         end
     end
     io.write("var data = [{ \n")
