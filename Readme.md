@@ -2,8 +2,6 @@
 
 ![Boxgen Visual Example](readme_assets/visual_example.jpg)
 
-##### **WARNING**: Relatively undocumented besides code, tutorials incoming soon. This is a lua utility program, *not* a minetest mod.
-
 ---
 
 ## Getting Started
