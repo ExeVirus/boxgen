@@ -10,7 +10,7 @@ Boxgen is a set of lua files that consitute a whole program that accepts .obj fi
 
 Boxgen is built with customizability in mind. There are different goals of various mod creators for minetest and some want to optimize for accuracy, and some for speed. This project aims to appease both by allowing a user to specify the quality, minimum size, and accuracy of the generated boxes. 
 
-For a much better walkthrough, tutorials, and videos, please visit the [wiki](https://github.com/ExeVirus/boxgen/wiki). 
+For much better walkthroughs and tutorials please visit the [wiki](https://github.com/ExeVirus/boxgen/wiki). 
 
 ---
 
@@ -26,14 +26,14 @@ On linux, you can normally just use a package manager to install lua. I fully re
 lua run.lua -h
 ```
 
-#### 4. To generate boxes for the provided example.obj file, just execute:
+#### 4. To generate boxes for the provided example.obj file, execute:
 
 ```
 lua run.lua 
 ```
 - Two html files will be generated that allow you to view the boxes without loading all of minetest: boxes.html and obj.html. obj.html is just the mesh file, and boxes.html is the mesh + voxel grid used for generation + boxes.
 
-- The output data will be in a file called "data.box", this is to be renamed and used with [autobox](https://github.com/ExeVirus/autobox) 
+- The output data will be in a file called "<meshfilename>.box", this is to be used with [autobox](https://github.com/ExeVirus/autobox) 
 
 #### 5. To change the boxing settings, there are four key variables:
 - **spacing**: This is the spacing between voxels when voxelizing the object. Smaller is more data points, but slower.
@@ -44,15 +44,10 @@ lua run.lua
 #### 6. Caveats to be aware of:
 - Your meshes **must** be watertight, or at least 99.9% watertight to get good results. If you don't know what this means, go see the [wiki page](https://github.com/ExeVirus/boxgen/wiki/Overview-and-Algorithm) on the subject.
 
-- Meshes larger than 3x3x3 (or smaller, but offset from the origin) will require extra nodes to approximate. While this is done as effeciently as possible, these means you cannot merely place your object anywhere you can place a node, you must think of it as a two+ node object, and that can be hard to deal with in some situations (especially larger meshes like a building)
+- Meshes larger than 3x3x3 (or smaller, but offset from the origin) will require extra nodes to approximate. While this is done as effeciently as possible, this means you cannot merely place your object anywhere you can place a node. Instead, you must think of it as a two+ node object, and that can be hard to deal with in some situations (especially larger meshes like a building). 
 
 - This program is decently optimized, so it runs pretty fast, but it is using CPU, and so unless you are patient, I recommend using meshes with no more than 1200 triangles, and grid spacing no smaller than 2% of the mesh size (i.e. 0.02 spacing for a node sized object). LuaJIT (5.1) is able to run this program at about 10x the speed of normal lua, I can't recommend it enough. You should never need to use meshes larger than 1200 triangles though, see the [wiki page](https://github.com/ExeVirus/boxgen/wiki/Meshlab-Tutorial) on working with meshes and meshlab. 
 
 ---
 
-## To-Be-Completed
-
-5. Finish 1.0 wiki
-6. Release mod using this toolset
-7. Provide Tutorial Video(s)
-8. Provide Tutorial on Using Meshlab to make a simplified watertight mesh for making decent approximations. 
+## Happy Boxing!
