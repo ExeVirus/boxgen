@@ -35,7 +35,7 @@ viewer.viewObj(objfile)
 local grid = boxgen.voxelize(boxgen.deref(objfile),settings.spacing, settings.relocate, reposition)
 
 --Break the grid into 3x3x3 chunks (using reposition to adjust location)
-local groups = boxgen.breakup(grid, inspect, settings.relocate, reposition)
+local groups = boxgen.breakup(grid, inspect, settings.relocate, reposition, settings.force_single)
 
         -------Optional views-------
 

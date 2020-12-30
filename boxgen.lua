@@ -303,7 +303,8 @@ end
 -- grid = object containing dimensions and vertex values in linear array.
 -- the returned groups contains multiple "grids" and has an associated "size" saying how many groups there are
 -- Empty resulting boxes are not found at this time.
-function boxgen.breakup(grid, inspect, relocate, reposition)
+function boxgen.breakup(grid, inspect, relocate, reposition, force_single)
+    if force_single ~= true then force_single = false end
     local groups = {}
     local q = 3 --q = cutoff
 
@@ -330,8 +331,14 @@ function boxgen.breakup(grid, inspect, relocate, reposition)
         groups.size.y = math.floor((grid.dimensions.y / q))+1
         groups.size.z = math.floor((grid.dimensions.z / q))+1
     end
+    if force_single == true then 
+        groups.size.x = 1
+        groups.size.y = 1
+        groups.size.z = 1
+    end
+    
     groups.grid = {}
-    if (groups.size.x + groups.size.y + groups.size.z ~= 3) then
+    if (groups.size.x + groups.size.y + groups.size.z ~= 3 or force_single == true) then
         local index = 1
         --First set up our various grids for being filled with voxels
         for i = 0, groups.size.x-1, 1 do
@@ -531,22 +538,24 @@ function boxgen.breakup(grid, inspect, relocate, reposition)
                         index = k + j * zGridLength + i * yGridLength * zGridLength --re-doing our array reference :)
                         --Now assign the voxel to the associated grid, hopefully the indexes line up correctly....
                         ind = 1 + zGrid + yGrid * groups.size.z + xGrid * groups.size.z * groups.size.y
-                        if groups.grid[ind].numberOfVoxels == 0 then
-                            groups.grid[ind].start.x = i+1
-                            groups.grid[ind].start.y = j+1
-                            groups.grid[ind].start.z = k
-                            groups.grid[ind].fin.x = i+1
-                            groups.grid[ind].fin.y = j+1
-                            groups.grid[ind].fin.z = k
-                        end
-                        groups.grid[ind].voxels[groups.grid[ind].numberOfVoxels+1] = grid.voxels[index]
-                        groups.grid[ind].numberOfVoxels = 1 + groups.grid[ind].numberOfVoxels
-                        groups.grid[ind].numFilledVoxels = grid.voxels[index] + groups.grid[ind].numFilledVoxels
+                        if groups.grid[ind] then
+                            if groups.grid[ind].numberOfVoxels == 0 then
+                                groups.grid[ind].start.x = i+1
+                                groups.grid[ind].start.y = j+1
+                                groups.grid[ind].start.z = k
+                                groups.grid[ind].fin.x = i+1
+                                groups.grid[ind].fin.y = j+1
+                                groups.grid[ind].fin.z = k
+                            end
+                            groups.grid[ind].voxels[groups.grid[ind].numberOfVoxels+1] = grid.voxels[index]
+                            groups.grid[ind].numberOfVoxels = 1 + groups.grid[ind].numberOfVoxels
+                            groups.grid[ind].numFilledVoxels = grid.voxels[index] + groups.grid[ind].numFilledVoxels
 
-                        --Now updated ends of this grid
-                        groups.grid[ind].fin.x = math.max(i+1, groups.grid[ind].fin.x)
-                        groups.grid[ind].fin.y = math.max(j+1, groups.grid[ind].fin.y)
-                        groups.grid[ind].fin.z = math.max(k, groups.grid[ind].fin.z)
+                            --Now updated ends of this grid
+                            groups.grid[ind].fin.x = math.max(i+1, groups.grid[ind].fin.x)
+                            groups.grid[ind].fin.y = math.max(j+1, groups.grid[ind].fin.y)
+                            groups.grid[ind].fin.z = math.max(k, groups.grid[ind].fin.z)
+                       end
                     end
                 end
             end

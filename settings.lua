@@ -4,7 +4,7 @@ settings.valid = true
 
     --This is the filename of the .obj file to be boxed
 
-settings.filename = "models/example.obj"
+settings.filename = "models/bunk_bed.obj"
 
 
     --If relocate is 'true', your .obj is automatically aligned so that the bottom left corner is at -1.5,-1.5,-1.5
@@ -28,13 +28,13 @@ settings.spacing = 0.1
     --Setting this to 100 will result in many boxes, but will not protrude outside your object
     --Typically, if you want really fast (for minetest to run), decent boxing, a range from 0.60-0.80 is good.
 
-settings.minfill = 0.75
+settings.minfill = 0.65
 
 
     --minvol is how small the smallest box is allowed to be. For example, with a 0.1 spacing, the smallest box that can be generated is technically 
     --0.1*0.1*0.1 = 0.001. I typically recommend at least 0.02 to throw out frivolous (useless) boxes. 
 
-settings.minvol  = 0.02
+settings.minvol  = 0.01
 
 
     --minqual is another quality measure, though it is a bit advanced. Essentially it says that a box should NOT grow in size when doing so would
@@ -50,7 +50,16 @@ settings.minvol  = 0.02
     -- minqual, therefore typically will help you generate boxes that don't "reach" for very small protrutions. I reccomend playing with the value if you don't like the results 
     -- that minvol can give you alone. Typically, I don't personally raise this much past 0.2, but feel free to play with it!
 
-settings.minqual = 0.1
+settings.minqual = 0.01
+
+
+
+    --force single is for those who are using meshes with slight protrusions out of the core object. Say, a british wee-woo light on a police car. If that wee-woo light happens to just barely stick out past 
+    -- 1.5+y on the object, then autobox will try to generate a single box to represent it, and therefore take a single empty node spot when in reality, the police car could be repesented as a single
+    -- node's bounding box. Force_single currently is only supported when NOT relocating your object, but that's okay because 99.9% of the time, relocation is for large meshes. 
+    
+    --TLDR: this forces only a single *set* of boxes to be output for any given object. And that set will have an origin at 0,0,0.
+settings.force_single = true
 
 
 -----------------------------------End Settings-------------------------------------
