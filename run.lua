@@ -1,10 +1,10 @@
 package.path = "../?.lua;" .. package.path
-local boxgen = require "./boxgen"
-local viewer = require "./viewer"
-local inspect = require "./inspect"
-local pause = require "./pause"
-local export = require "./export"
-local getArgs = require "./args"
+local boxgen = require "boxgen"
+local viewer = require "viewer"
+local inspect = require "inspect"
+local pause = require "pause"
+local export = require "export"
+local getArgs = require "args"
 
 --Get Settings to run
 local settings = getArgs(arg)

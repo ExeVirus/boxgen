@@ -1,6 +1,6 @@
 package.path = "../?.lua;" .. package.path
-local inspect = require "./inspect"
-local export = require "./export"
+local inspect = require "inspect"
+local export = require "export"
 
 local f
 if arg[1] ~= nil then

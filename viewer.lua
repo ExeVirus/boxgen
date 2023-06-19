@@ -4,7 +4,7 @@ function viewer.viewObj(objfile)
     local export = io.open("obj.html", "w+") --Open file for writing
     io.output(export)
 
-    local plotly_header = require "./plotly_header" --Get the shared html header
+    local plotly_header = require "plotly_header" --Get the shared html header
     io.write(plotly_header)
 
     io.write("<script>\n")
@@ -133,7 +133,7 @@ function viewer.viewObjGrid(objfile, grid)
     local export = io.open("ObjGrid.html", "w+")
     io.output(export)
 
-    local plotly_header = require "./plotly_header"
+    local plotly_header = require "plotly_header"
     io.write(plotly_header)
 
     io.write("<script>\n")
@@ -268,7 +268,7 @@ function viewer.viewObjSubGrid(objfile, grid, groups)
     local export = io.open("ObjSubGrids.html", "w+")
     io.output(export)
 
-    local plotly_header = require "./plotly_header"
+    local plotly_header = require "plotly_header"
     io.write(plotly_header)
 
     io.write("<script>\n")
@@ -435,7 +435,7 @@ function viewer.viewObjBoxes(objfile, grid, boxGroups)
     local export = io.open("Boxes.html", "w+")
     io.output(export)
 
-    local plotly_header = require "./plotly_header"
+    local plotly_header = require "plotly_header"
     io.write(plotly_header)
 
     io.write("<script>\n")
