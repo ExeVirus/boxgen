@@ -1,4 +1,5 @@
 package.path = "../?.lua;" .. package.path
+package.path = "../boxgen/?.lua;" .. package.path
 local inspect = require "inspect"
 local export = require "export"
 
